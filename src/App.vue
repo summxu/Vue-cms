@@ -4,7 +4,7 @@
     <mt-header fixed title="2018年7月21日"></mt-header>
     <!-- 中间 router-view -->
     <transition appear mode="out-in">
-      <router-view></router-view>    
+      <router-view :gdate="date"></router-view>    
     </transition>
     <!-- 底部 Tabbar -->
     <nav class="mui-bar mui-bar-tab">
@@ -27,6 +27,15 @@
 		</nav>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      date: new Date()
+    };
+  }
+};
+</script>
 <style lang="stylus" scoped>
 .v-enter
   opacity 0
@@ -39,5 +48,6 @@
   transition all .5s
 .app-content
   padding-top 40px
+  padding-bottom 50px
   overflow hidden
 </style>
