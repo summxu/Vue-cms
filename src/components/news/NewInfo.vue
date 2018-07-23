@@ -58,8 +58,4 @@ import comment from '../subcomponent/Comment.vue'
   span 
     font-size 14px
     color skyblue 
-.content,
-.comment
-  padding 10px 10px
-  font-size 16px
 </style>

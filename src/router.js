@@ -6,6 +6,9 @@ import SearchContent from './components/tabbar/SearchContent.vue'
 import ShopcarContent from './components/tabbar/ShopcarContent.vue'
 import NewList from './components/news/NewList.vue'
 import NewInfo from './components/news/NewInfo.vue'
+import PhotoList from './components/photo/PhotoList.vue'
+import PhotoInfo from './components/photo/PhotoInfo.vue'
+import GoodList from './components/good/GoodList.vue'
 var router = new Router({
   routes: [
     { path: '/', redirect: '/home' },
@@ -14,9 +17,12 @@ var router = new Router({
     { path: '/shopcar', component: ShopcarContent },
     { path: '/search', component: SearchContent },
     { path: '/home/newlist', component: NewList },
-    { path: '/home/newinfo/:id', component: NewInfo }
+    { path: '/home/newinfo/:id', component: NewInfo },
+    { path: '/home/pohotolist', component: PhotoList },
+    { path: '/home/photoinfo/:id', component: PhotoInfo },
+    { path: '/home/goodlist', component: GoodList }
   ],
-  linkActiveClass: 'mui-active'
+  linkActiveClass: 'mui-active-cx'
 })
 
 export default router

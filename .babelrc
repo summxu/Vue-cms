@@ -5,6 +5,7 @@
   ],
   "plugins": [
     "transform-runtime",
+    "babel-plugin-transform-remove-strict-mode",
     ["component", [
     {
       "libraryName": "mint-ui",

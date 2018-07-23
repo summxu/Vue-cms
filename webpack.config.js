@@ -15,11 +15,12 @@ module.exports = {
   },
   //devServer的另一种配置方式
   devServer: {
-    hot: true,
+    // hot: true,
     inline:true,    //实时刷新
     // colors: true,  //终端中输出结果为彩色
     contentBase: 'src',
-    port: 3000
+    port: 3000,
+    host: '192.168.0.242'
     // open: true,
   },
   //配置插件的节点
