@@ -15,19 +15,20 @@ module.exports = {
   },
   //devServer的另一种配置方式
   devServer: {
-    // hot: true,
+    hot: true,
     inline:true,    //实时刷新
     // colors: true,  //终端中输出结果为彩色
     contentBase: 'src',
     port: 3000,
-    host: '192.168.0.242'
-    // open: true,
+    host: '192.168.0.242',
+    open: true
   },
   //配置插件的节点
   plugins: [
     //启用热更新的插件
     // new webpack.optimize.OccurenceOrderPlugin(true), //热更新替换插件
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     //配置html在内存中加载的插件
     new htmlwebpackplugin({
       //指定模板页面,拷贝到内存中

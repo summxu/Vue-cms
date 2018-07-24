@@ -1,7 +1,11 @@
 <template>
   <div class="app-content">
     <!-- 顶部 header -->
-    <mt-header style="z-index: 999 " fixed title="2018年7月21日"></mt-header>
+    <mt-header style="z-index: 999 " fixed title="2018年7月21日">
+      
+        <mt-button v-show="this.$route.path === '/home' ? false : true" slot="left" @click="getBack()" icon="back">返回</mt-button>
+      
+    </mt-header>
     <!-- 中间 router-view -->
     <transition appear mode="out-in">
       <router-view :gdate="date"></router-view>    
@@ -33,7 +37,19 @@ export default {
     return {
       date: new Date()
     };
-  }
+  },
+  methods:{
+    getBack(){
+      
+      this.$router.go(-1)
+    }
+  },
+  mounted() {
+    // console.log(this);
+    // if (this.$route.path === '/home') {
+      
+    // }
+  },
 };
 </script>
 <style lang="stylus" scoped>

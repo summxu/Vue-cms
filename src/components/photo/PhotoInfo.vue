@@ -14,7 +14,7 @@
 </template>
 <script>
 import comment from '../subcomponent/Comment.vue'
-export default{
+export default {
   data(){
     return {
       id:'',

@@ -1,36 +1,36 @@
 <template>
   <div class="good-list">
-    <div class="good-item">
-      <img src="../../images/news/shuijiao.jpg" alt="">
-      <h1>小i米</h1>
+    <router-link to="/home/goodinfo/1" class="good-item">
+      <img src="../../images/mp.jpg" alt="">
+      <h1>Galaxy S 轻奢版</h1>
       <div class="info">
         <p class="nprice">¥2055</p>
         <p class="oprice">¥3088</p>
         <span class="fl">热卖中</span>
         <span class="fr">剩余60件</span>
       </div>
-    </div>
-    <div class="good-item">
-      <img src="../../images/news/shuijiao.jpg" alt="">
-      <h1>小i米7小米mete8高配跳楼岁啊不买</h1>
+    </router-link>
+    <router-link to="/home/goodinfo/1" class="good-item">
+      <img src="../../images/s9.jpg" alt="">
+      <h1>HUAWEI 麦芒6 4GB+64GB 全网通版（流光金）</h1>
       <div class="info">
         <p class="nprice">¥2055</p>
         <p class="oprice">¥3088</p>
         <span class="fl">热卖中</span>
         <span class="fr">剩余60件</span>
       </div>
-    </div>
-    <div class="good-item">
-      <img src="../../images/news/shuijiao.jpg" alt="">
-      <h1>小i米7小米mete8高配跳楼岁啊不买</h1>
+    </router-link>
+    <router-link to="/home/goodinfo/1" class="good-item">
+      <img src="../../images/xm.jpg" alt="">
+      <h1>小红米6A</h1>
       <div class="info">
         <p class="nprice">¥2055</p>
         <p class="oprice">¥3088</p>
         <span class="fl">热卖中</span>
         <span class="fr">剩余60件</span>
       </div>
-    </div>
-    
+    </router-link>
+    <mt-button type="danger" size="large" >加载更多</mt-button>
   </div>
 </template>
 <script>
@@ -46,7 +46,7 @@
   .good-item
     width 49%
     box-shadow: 0px 2px 10px #888888;
-    margin-top 6px
+    margin 6px 0
     display flex
     flex-direction column
     justify-content space-between

@@ -9,6 +9,9 @@ import NewInfo from './components/news/NewInfo.vue'
 import PhotoList from './components/photo/PhotoList.vue'
 import PhotoInfo from './components/photo/PhotoInfo.vue'
 import GoodList from './components/good/GoodList.vue'
+import GoodInfo from './components/good/GoodInfo.vue'
+import GoodDesc from './components/good/GoodDesc.vue'
+import GoodComment from './components/good/GoodComment.vue'
 var router = new Router({
   routes: [
     { path: '/', redirect: '/home' },
@@ -20,7 +23,10 @@ var router = new Router({
     { path: '/home/newinfo/:id', component: NewInfo },
     { path: '/home/pohotolist', component: PhotoList },
     { path: '/home/photoinfo/:id', component: PhotoInfo },
-    { path: '/home/goodlist', component: GoodList }
+    { path: '/home/goodlist', component: GoodList },
+    { path: '/home/goodinfo/:id', component: GoodInfo },
+    { path: '/home/goodcomment/:id', component: GoodComment },
+    { path: '/home/gooddesc/:id', component: GoodDesc }
   ],
   linkActiveClass: 'mui-active-cx'
 })

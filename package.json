@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --hot --env development"
+    "dev": "webpack-dev-server --env development"
   },
   "keywords": [],
   "author": "",
@@ -35,8 +35,8 @@
     "stylus-loader": "^3.0.2",
     "url-loader": "^1.0.1",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^4.16.1",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.4"
+    "webpack": "^3.6.0",
+    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-dev-server": "^2.9.1"
   }
 }
