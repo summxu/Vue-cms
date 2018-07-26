@@ -1,40 +1,42 @@
 <template>
   <div class="good-list">
-    <router-link to="/home/goodinfo/1" class="good-item">
-      <img src="../../images/mp.jpg" alt="">
-      <h1>Galaxy S 轻奢版</h1>
+    <router-link v-for="(item, index) in good" :key="index" :to="'/home/goodinfo/'+item.id" class="good-item">
+      <img :src="item.img_url" alt="">
+      <h1>{{item.title}}</h1>
       <div class="info">
-        <p class="nprice">¥2055</p>
-        <p class="oprice">¥3088</p>
+        <p class="nprice">¥{{item.market_price}}</p>
+        <p class="oprice">¥{{item.sell_price}}</p>
         <span class="fl">热卖中</span>
-        <span class="fr">剩余60件</span>
+        <span class="fr">剩余{{item.stock_quantity}}件</span>
       </div>
     </router-link>
-    <router-link to="/home/goodinfo/1" class="good-item">
-      <img src="../../images/s9.jpg" alt="">
-      <h1>HUAWEI 麦芒6 4GB+64GB 全网通版（流光金）</h1>
-      <div class="info">
-        <p class="nprice">¥2055</p>
-        <p class="oprice">¥3088</p>
-        <span class="fl">热卖中</span>
-        <span class="fr">剩余60件</span>
-      </div>
-    </router-link>
-    <router-link to="/home/goodinfo/1" class="good-item">
-      <img src="../../images/xm.jpg" alt="">
-      <h1>小红米6A</h1>
-      <div class="info">
-        <p class="nprice">¥2055</p>
-        <p class="oprice">¥3088</p>
-        <span class="fl">热卖中</span>
-        <span class="fr">剩余60件</span>
-      </div>
-    </router-link>
-    <mt-button type="danger" size="large" >加载更多</mt-button>
+    <mt-button type="danger" size="large" @click="more" >加载更多</mt-button>
   </div>
 </template>
 <script>
-  
+export default {
+  data(){
+    return {
+      good:[],
+      page:1
+    }
+  },
+  methods:{
+    getGood(page){
+      this.$http.get('http://www.liulongbin.top:3005/api/getgoods?pageindex='+page).then(result=>{
+        if (result.body.status === 0) {
+          this.good = this.good.concat(result.body.message)
+        }
+      })
+    },
+    more(){
+      this.getGood(this.page++)
+    }
+  },
+  created() {
+   this.getGood(1)
+  },
+}
 </script>
 <style lang="stylus" scoped>
 .good-list

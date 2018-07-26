@@ -31,30 +31,39 @@
     <!-- 购买选项 -->
     <div class="goodi-b">
       <div class="mui-card">
-        <div class="mui-card-header">小米（Mi）小米NOTE 16G双网通</div>
+        <div class="mui-card-header">{{goodinfo.title}}</div>
         <div class="mui-card-content">
           <div class="mui-card-content-inner">
             <div class="by-h">
               <span>市场价：</span>
-              <span>￥2699</span>
+              <span style="text-decoration:line-through">￥{{goodinfo.market_price}}</span>
               <span>销售价：</span>
-              <span>￥2199</span>
+              <span style="color:red;font-size:20px">￥{{goodinfo.sell_price}}</span>
             </div>
             <div class="by-b">
               <span>购买数量：</span>
-              <div  class="mui-numbox">
+              <div class="mui-numbox" data-numbox-min="1" data-numbox-max="60">
                 <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
-                <input class="mui-input-numbox" type="number" />
+                <input class="mui-input-numbox" type="number" ref="count" value="1" />
                 <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
               </div>
             </div>
             <div class="by-f">
               <mt-button type="primary" size="small">立即购买</mt-button>
-              <mt-button @click="status = !status" type="danger" size="small">加入购物车</mt-button>
+              <mt-button @click="addcar()" type="danger" size="small">加入购物车</mt-button>
             </div>
           </div>
         </div>
       </div>
+      
+        <transition
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @after-enter="afterEnter"
+        >
+          <div v-show="status" ref="ball" class="ball"></div>
+        </transition>
+
     </div>
     
     <!-- 商品参数 -->
@@ -63,9 +72,9 @@
         <div class="mui-card-header">商品参数</div>
         <div class="mui-card-content">
           <div class="mui-card-content-inner">
-            <p>商品货号：SD289132123</p>
+            <p>商品货号：{{goodinfo.goods_no}}</p>
             <p>库存情况：60件</p>
-            <p>上架时间：{{gdate}}</p>
+            <p>上架时间：{{goodinfo.add_time}}</p>
           </div>
         </div>
         <div class="mui-card-footer">
@@ -74,26 +83,30 @@
         </div>
       </div>
     </div>
-    <transition
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @after-enter="afterEnter"
-      
-    >
-    <div v-show="status" class="ball"></div>
-    </transition>
-    
   </div>
 </template>
 <script>
+import mui from '../../lib/mui/js/mui.js'
+
 export default {
   data() {
     return {
-      status:true
+      status:false,
+      count : 0,
+      id:0,
+      goodinfo:{}
     }
   },
   props:["gdate"],
   methods:{
+    getGoodInfo(){
+      this.$http.get('http://www.liulongbin.top:3005/api/goods/getinfo/'+this.id).then(result => {
+        if (result.body.status === 0) {
+          this.goodinfo = result.body.message[0]
+          console.log(this.goodinfo);
+        }
+      })
+    },
     goGoodDesc(){
       this.$router.push({path:'/home/gooddesc/'+this.$route.params.id})
       console.log(this);
@@ -102,33 +115,58 @@ export default {
       this.$router.push({path:'/home/goodcomment/'+this.$route.params.id})
     },
     beforeEnter(el){
-      el.style.transform ="translate(0,0)"
+      
+      el.style.transform ="translate(0px,0px)"
+
     },
     enter(el,done){
+      
+      const ballposition = this.$refs.ball.getBoundingClientRect();
+      const badgeposition  = document.getElementById("badge").getBoundingClientRect();
+      const xDist = badgeposition.left - ballposition.left;
+      const yDist = badgeposition.top - ballposition.top;
+      console.log(ballposition);
+      console.log(badgeposition);
+      console.log(this.$refs.ball.getBoundingClientRect());
+      
+      console.log(xDist);
+      console.log(yDist);
+
       el.offsetWidth
-      el.style.transform ="translate(620px,240px)"
-      el.style.transition = 'all 1s ' 
+      el.style.transform ='translate('+xDist+'px,'+yDist+'px)'
+      el.style.transition = 'all .5s cubic-bezier(.66,-0.42,.99,.7)' 
       done()      
     },
     afterEnter(el){
-      status = !status
+      this.status = !this.status
+
+    },
+    addcar(){
+      this.status = !this.status;
+      // console.log(this.$refs);
+      
+      this.count = parseInt(this.$refs.count.value) 
+
+      //添加到store仓库
+      good = this.goodinfo
+      good.count = this.count
+      good.selected = true
+      // console.log(good);
+      
+      this.$store.commit('addgood',good)
     }
-  }
+  },
+  mounted() {
+    mui(".mui-numbox").numbox()
+  },
+  created() {
+    this.id = this.$route.params.id
+    console.log(this.id);
+    this.getGoodInfo()
+  },
 }
 </script>
 <style lang="stylus" scoped>
-.ball 
-  width 20px
-  height 20px
-  border-radius 50%
-  background-color red
-  position fixed
-  z-index 99999
-  // 300 150 620 240
-  top 300px
-  left 150px
-  // transform translate(300px,150px)
-
 .goodi
   // padding 10px
   .goodi-h .mui-card-content 
@@ -138,12 +176,18 @@ export default {
       img 
         height 100%
   .goodi-b
-    .by-h:nth-child(2)
-      font-size 16px
-      text-decoration line-through
-    .by-h:nth-child(4)
-      color red
-      font-size 18px
+    position relative
+    .ball 
+      width 20px
+      height 20px
+      border-radius 50%
+      background-color red
+      position absolute
+      z-index 99999
+      // 300 150 620 240
+      top 83px
+      left 150px
+      // transform translate(300px,150px)
     .mui-numbox
       width 120px
       height 25px

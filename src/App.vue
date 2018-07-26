@@ -1,7 +1,7 @@
 <template>
   <div class="app-content">
     <!-- 顶部 header -->
-    <mt-header style="z-index: 999 " fixed title="2018年7月21日">
+    <mt-header style="z-index: 999 " fixed title="VueCMS For Chenxu">
       
         <mt-button v-show="this.$route.path === '/home' ? false : true" slot="left" @click="getBack()" icon="back">返回</mt-button>
       
@@ -21,7 +21,7 @@
 				<span class="mui-tab-label">会员</span>
 			</router-link>
 			<router-link class="mui-tab-item-cx" to="/shopcar">
-				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">9</span></span>
+				<span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" id = "badge">{{this.$store.getters.getSum}}</span></span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
 			<router-link class="mui-tab-item-cx" to="/search">
@@ -40,7 +40,6 @@ export default {
   },
   methods:{
     getBack(){
-      
       this.$router.go(-1)
     }
   },
